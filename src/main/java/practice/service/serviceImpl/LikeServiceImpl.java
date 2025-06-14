@@ -15,7 +15,18 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void addLikeForComment(Long id, Like like) {
-
+    public void deleteLikeFromPost(Long postId, Long ownerUserId) {
+        likeDao.deleteLikeFromPost(postId, ownerUserId);
     }
+
+    @Override
+    public void addLikeForComment(Long commentAuthorId, Long commentId, Like like) {
+        likeDao.addLikeForComment(commentAuthorId, commentId, like);
+    }
+
+    @Override
+    public void deleteLikeFromComment(Long commentId, Long commentAuthorId) {
+        likeDao.deleteLikeFromComment(commentId, commentAuthorId);
+    }
+
 }

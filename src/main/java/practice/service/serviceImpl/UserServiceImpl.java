@@ -5,6 +5,7 @@ import practice.dao.UserDao;
 import practice.dao.daoImpl.UserDaoImpl;
 import practice.entities.User;
 import practice.service.UserService;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,5 +15,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(User user) {
         userDao.createUser(user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    @Override
+    public void updateUserByID(Long id, User user) {
+        userDao.updateUserByID(id, user);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userDao.deleteUserById(id);
     }
 }

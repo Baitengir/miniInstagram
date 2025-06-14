@@ -13,8 +13,7 @@ import practice.entities.User;
 import java.time.LocalDate;
 
 public class LikeDaoImpl implements LikeDao {
-    private static final Log log = LogFactory.getLog(LikeDaoImpl.class);
-    private EntityManagerFactory entityManagerFactory = HibernateConfig.getEntityManagerFactory();
+    private final EntityManagerFactory entityManagerFactory = HibernateConfig.getEntityManagerFactory();
 
     @Override
     public void addLikeForPost(Long postId, Long ownerUserId, Like like) {
@@ -31,15 +30,16 @@ public class LikeDaoImpl implements LikeDao {
                 like.setLikedDate(LocalDate.now());
                 like.setPost(post);
                 like.setUser(user);
+                entityManager.persist(like);
 
                 post.getLikes().add(like);
                 post.setLikesCount(post.getLikesCount() + 1);
-
-                entityManager.persist(like);
                 entityManager.merge(post);
+                entityManager.getTransaction().commit();
                 System.out.println("like successfully added");
             } else {
                 deleteLikeFromPost(postId, ownerUserId);
+                System.out.println("like deleted, because like already exists");
             }
 
         } catch (HibernateException e) {
@@ -67,6 +67,7 @@ public class LikeDaoImpl implements LikeDao {
 
             if (likeToRemove != null) {
                 post.getLikes().remove(likeToRemove);
+                post.setLikesCount(post.getLikesCount() - 1);
                 entityManager.remove(likeToRemove);
             } 
             entityManager.getTransaction().commit();
@@ -105,8 +106,10 @@ public class LikeDaoImpl implements LikeDao {
                 entityManager.persist(like);
                 entityManager.merge(comment);
                 entityManager.getTransaction().commit();
+                System.out.println("like successfully added");
             } else {
                 deleteLikeFromComment(commentId, commentAuthorId);
+                System.out.println("like deleted, because like already exists");
             }
             
         } catch (HibernateException e){
@@ -134,6 +137,7 @@ public class LikeDaoImpl implements LikeDao {
             
             if (likeToRemove != null){
                 comment.getLikes().remove(likeToRemove);
+                comment.setLikesCount(comment.getLikesCount() - 1);
                 entityManager.remove(likeToRemove);
             }
             entityManager.getTransaction().commit();

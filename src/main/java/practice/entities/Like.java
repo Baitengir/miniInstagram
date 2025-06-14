@@ -21,14 +21,12 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "like_gen")
     @SequenceGenerator(name = "like_gen", sequenceName = "like_seq", allocationSize = 1)
     Long id;
-    @Column(name = "is_like")
-    boolean isLike;
     @Column(name = "liked_date")
     LocalDate likedDate;
-    @ManyToOne(cascade = {DETACH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     User user;
-    @ManyToOne(cascade = {DETACH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     Post post;
-    @ManyToOne(cascade = {DETACH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     Comment comment;
 }

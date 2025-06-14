@@ -1,4 +1,5 @@
 package practice.dao.daoImpl;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.HibernateException;
@@ -24,12 +25,13 @@ public class CommentDaoImpl implements CommentDao {
             comment.setPost(post);
             comment.setCreateDate(LocalDate.now());
             entityManager.persist(comment);
+            post.setLikesCount(post.getLikesCount() + 1);
             post.getComments().add(comment);
             user.getComments().add(comment);
             entityManager.getTransaction().commit();
             System.out.println("success");
-        } catch (HibernateException e){
-            if (entityManager.getTransaction().isActive()){
+        } catch (HibernateException e) {
+            if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
             throw new HibernateException(e.getMessage());
