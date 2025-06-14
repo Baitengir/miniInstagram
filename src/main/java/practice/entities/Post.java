@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import static jakarta.persistence.CascadeType.*;
 
@@ -25,12 +26,14 @@ public class Post {
     String imageUrl;
     @Column (name = "create_date")
     LocalDate createDate;
+    @Column(name = "likes_count")
+    int likesCount = 0;
     @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     User user;
     @OneToMany(mappedBy = "post", cascade = {REMOVE, MERGE, REFRESH})
-    List<Comment> comments;
+    List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = {REMOVE, MERGE, REFRESH})
-    List<Like> likes;
+    List<Like> likes = new ArrayList<>();
 
     public Post(String description, String imageUrl, LocalDate createDate, User user) {
         this.description = description;

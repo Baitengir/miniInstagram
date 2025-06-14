@@ -3,8 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
 import static jakarta.persistence.CascadeType.*;
 
 @Getter
@@ -25,10 +25,12 @@ public class Comment {
     String commentText;
     @Column(name = "create_date")
     LocalDate createDate;
+    @Column(name = "likes_count")
+    int likesCount = 0;
     @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     User user;
     @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
     Post post;
     @OneToMany(mappedBy = "comment", cascade = {REMOVE})
-    List<Like> likes;
+    List<Like> likes = new ArrayList<>();
 }

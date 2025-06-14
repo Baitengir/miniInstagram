@@ -1,9 +1,13 @@
 package practice.entities;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 import static jakarta.persistence.CascadeType.*;
 
 @Getter
@@ -36,11 +40,11 @@ public class User {
                     REFRESH
             }
     )
-    List<Post> posts;
+    List<Post> posts = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
-    List<Comment> comments;
+    List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
-    List<Like> likes;
+    List<Like> likes = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth) {
         this.firstName = firstName;

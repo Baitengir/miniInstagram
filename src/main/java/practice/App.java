@@ -15,30 +15,32 @@ import java.time.LocalDate;
 public class App {
 
     public static void main(String[] args) {
+
+
         UserService userService = new UserServiceImpl();
         PostServiceImpl postService = new PostServiceImpl();
         CommentService commentService = new CommentServiceImpl();
         LikeService likeService = new LikeServiceImpl();
 
 //        userService.createUser(User.builder()
-//                .firstName("Nurpazyl")
-//                .lastName("Nn")
-//                .email("nn@gmail.com")
-//                .dateOfBirth(LocalDate.of(2006, 5, 16))
-//                .phoneNumber("0708090877")
+//                .firstName("Altynbek")
+//                .lastName("altyn")
+//                .email("aaGold@gmail.com")
+//                .dateOfBirth(LocalDate.of(2003, 5, 16))
+//                .phoneNumber("0508090877")
 //                .build());
-//
+
 //        postService.addPostByUserId(1L, Post.builder()
 //                .imageUrl("https/image")
 //                .description("my life")
 //                .build());
-//
-//        commentService.createComment(1L, 1L, Comment
+////
+//        commentService.createComment(2L, 1L, Comment
 //                .builder()
 //                .commentText("Grate!")
 //                .build());
-
-        likeService.addLikeForPost(1L, 1L, Like.builder()
+//
+        likeService.addLikeForPost(2L, 1L, Like.builder()
                 .isLike(true)
                 .build());
     }
