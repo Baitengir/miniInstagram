@@ -27,7 +27,7 @@ public class HibernateConfig {
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Post.class);
             configuration.addAnnotatedClass(Comment.class);
-//            configuration.addAnnotatedClass(Like.class);
+            configuration.addAnnotatedClass(Like.class);
             return configuration.buildSessionFactory().unwrap(EntityManagerFactory.class);
         } catch (HibernateException e) {
             throw new HibernateException(e.getMessage());

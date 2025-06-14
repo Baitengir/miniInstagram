@@ -39,8 +39,8 @@ public class User {
     List<Post> posts;
     @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
     List<Comment> comments;
-    @OneToOne(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
-    Like like;
+    @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
+    List<Like> likes;
 
     public User(String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth) {
         this.firstName = firstName;

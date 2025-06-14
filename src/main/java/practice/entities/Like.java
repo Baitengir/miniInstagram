@@ -3,7 +3,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import static jakarta.persistence.CascadeType.DETACH;
+import java.time.LocalDate;
+
+import static jakarta.persistence.CascadeType.*;
 
 @Getter
 @Setter
@@ -21,7 +23,9 @@ public class Like {
     Long id;
     @Column(name = "is_like")
     boolean isLike;
-    @OneToOne(cascade = {DETACH})
+    @Column(name = "liked_date")
+    LocalDate likedDate;
+    @ManyToOne(cascade = {DETACH})
     User user;
     @ManyToOne(cascade = {DETACH})
     Post post;
