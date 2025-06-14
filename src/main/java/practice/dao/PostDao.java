@@ -5,4 +5,5 @@ import practice.entities.Post;
 @Repository
 public interface PostDao {
     void addPostByUserId(Long id, Post post);
+    Post
 }
