@@ -23,37 +23,37 @@ public class App {
         LikeService likeService = new LikeServiceImpl();
 
 //        userService.createUser(User.builder()
-//                .firstName("Junus")
+//                .firstName("Zahir")
 //                .lastName("jj")
 //                .email("ld@gmail.com")
-//                .dateOfBirth(LocalDate.of(2013, 5, 16))
+//                .dateOfBirth(LocalDate.of(2003, 5, 16))
 //                .phoneNumber("0508090877")
 //                .build());
 
-//        postService.addPostByUserId(3L, Post.builder()
+//        postService.addPostByUserId(7L, Post.builder()
 //                .imageUrl("https/image")
 //                .description("my life")
 //                .build());
 //
-//        postService.addPostByUserId(4L, Post.builder()
+//        postService.addPostByUserId(5L, Post.builder()
 //                .imageUrl("https/image")
 //                .description("moon")
 //                .build());
 ////
-//        commentService.createComment(4L, 2L, Comment
+//        commentService.createComment(5L, 8L, Comment
 //                .builder()
-//                .commentText("Grate!")
+//                .commentText("yoooou!!")
 //                .build());
-//        commentService.createComment(3L, 3L, Comment
+//        commentService.createComment(7L, 7L, Comment
 //                .builder()
-//                .commentText("Grate!")
+//                .commentText("crush!")
 //                .build());
 //
-//        likeService.addLikeForPost(3L, 3L, Like.builder()
-//                .isLike(true)
-//                .build());
+        likeService.addLikeForPost(7L, 6L, Like.builder().build());
+//        likeService.addLikeForPost(8L, 6L, Like.builder().build());
 
-//        likeService.deleteLikeFromPost(3L, 2L);
+//        likeService.deleteLikeFromPost(8L, 5L);
+
 // todo drop and create db for new lines in entities
 
 

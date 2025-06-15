@@ -10,6 +10,7 @@ import practice.entities.Post;
 import practice.entities.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CommentDaoImpl implements CommentDao {
     private final EntityManagerFactory entityManagerFactory = HibernateConfig.getEntityManagerFactory();
@@ -25,7 +26,7 @@ public class CommentDaoImpl implements CommentDao {
             comment.setPost(post);
             comment.setCreateDate(LocalDate.now());
             entityManager.persist(comment);
-            post.setLikesCount(post.getLikesCount() + 1);
+            post.setCommentsCount(post.getCommentsCount() + 1);
             post.getComments().add(comment);
             user.getComments().add(comment);
             entityManager.getTransaction().commit();
@@ -38,5 +39,45 @@ public class CommentDaoImpl implements CommentDao {
         } finally {
             entityManager.close();
         }
+    }
+
+    @Override
+    public Comment getCommentById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void updateCommentById(Long id, Comment comment) {
+
+    }
+
+    @Override
+    public void deleteCommentById(Long id) {
+
+    }
+
+    @Override
+    public List<Comment> getCommentsByUserId(Long id) {
+        return List.of();
+    }
+
+    @Override
+    public List<Comment> getCommentsByPostId(Long id) {
+        return List.of();
+    }
+
+    @Override
+    public Comment getPopularComment() {
+        return null;
+    }
+
+    @Override
+    public List<Comment> getPopularCommentsByPostId(Long id) {
+        return List.of();
+    }
+
+    @Override
+    public Comment getPopularCommentByUserId(Long id) {
+        return null;
     }
 }
