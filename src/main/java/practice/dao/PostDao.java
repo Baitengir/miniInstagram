@@ -14,4 +14,8 @@ public interface PostDao {
     List<Post> getSortedPostsByLike(String ascOrDesc);
 
     void deletePostById(Long id);
+
+    Post getMostPopularPost();
+
+    Post getMostPopularPostByCommentCount();
 }

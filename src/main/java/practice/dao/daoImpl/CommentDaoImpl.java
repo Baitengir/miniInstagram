@@ -1,5 +1,4 @@
 package practice.dao.daoImpl;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.HibernateException;
@@ -8,7 +7,6 @@ import practice.dao.CommentDao;
 import practice.entities.Comment;
 import practice.entities.Post;
 import practice.entities.User;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

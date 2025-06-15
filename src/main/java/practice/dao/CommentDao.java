@@ -1,8 +1,6 @@
 package practice.dao;
-
 import org.springframework.stereotype.Repository;
 import practice.entities.Comment;
-
 import java.util.List;
 
 @Repository

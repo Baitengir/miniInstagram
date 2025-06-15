@@ -37,4 +37,9 @@ public class PostServiceImpl implements practice.service.PostService {
         postDao.deletePostById(id);
     }
 
+    @Override
+    public Post getMostPopularPostByCommentCount() {
+        return postDao.getMostPopularPostByCommentCount();
+    }
+
 }

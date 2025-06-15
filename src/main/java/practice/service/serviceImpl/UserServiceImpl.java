@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userDao.deleteUserById(id);
     }
+
+    @Override
+    public User getUserByMostPopularPost() {
+        return userDao.getUserByMostPopularPost();
+    }
 }

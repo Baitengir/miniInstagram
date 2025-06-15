@@ -12,4 +12,5 @@ public interface UserService {
     List<User> getAllUsers();
     void updateUserByID(Long id, User user);
     void deleteUserById(Long id);
+    public User getUserByMostPopularPost();
 }

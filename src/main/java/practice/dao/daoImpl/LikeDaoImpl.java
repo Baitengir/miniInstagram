@@ -1,8 +1,6 @@
 package practice.dao.daoImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import practice.config.HibernateConfig;
 import practice.dao.LikeDao;

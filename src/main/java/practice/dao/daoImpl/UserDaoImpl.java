@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.HibernateException;
 import practice.config.HibernateConfig;
 import practice.dao.UserDao;
+import practice.entities.Post;
 import practice.entities.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +100,25 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public User getUserByMostPopularPost() {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            List<Post> posts = entityManager.createQuery(
+                    "select p from Post p order by p.likesCount desc",
+                    Post.class)
+                    .setMaxResults(1)
+                    .getResultList();
+            if (posts.isEmpty()){
+                System.out.println("Database for posts is empty");
+                return null;
+            }
+            return posts.get(0).getUser();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }

@@ -10,4 +10,5 @@ public interface PostService {
     List<Post> getAllPostsByUserId (Long id);
     List<Post> getSortedPostsByLike (String ascOrDesc);
     void deletePostById(Long id);
+    Post getMostPopularPostByCommentCount();
 }

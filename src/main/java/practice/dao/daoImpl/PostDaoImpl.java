@@ -68,15 +68,69 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> getSortedPostsByLike(String ascOrDesc) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        try{
-//            entityManager.createQuery("select p from Post p order by li")
-//        }
-        return List.of();
+        if (ascOrDesc == null || !ascOrDesc.equals("asc") && !ascOrDesc.equals("desc")) {
+            System.out.println("invalid parameter, use (asc / desc)! ");
+            return new ArrayList<>();
+        }
+
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            String hql = "select p from Post p order by p.likesCount "+ ascOrDesc;
+            return entityManager.createQuery(hql, Post.class)
+                    .getResultList();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return List.of();
+        }
     }
 
     @Override
     public void deletePostById(Long id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Post post = entityManager.find(Post.class, id);
+            entityManager.remove(post);
+            entityManager.getTransaction().commit();
+            System.out.println("successfully deleted post with id " + id);
+        } catch (HibernateException e){
+            if (entityManager.getTransaction().isActive()){
+                entityManager.getTransaction().rollback();
+            }
+            throw new HibernateException(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
+    @Override
+    public Post getMostPopularPost() {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            return entityManager.createQuery(
+                    "select p from Post p order by p.likesCount desc",
+                    Post.class)
+                    .setMaxResults(1)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Post getMostPopularPostByCommentCount() {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            return  entityManager.createQuery(
+                    "select p from Post p order by p.commentsCount desc",
+                    Post.class)
+                    .setMaxResults(1)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

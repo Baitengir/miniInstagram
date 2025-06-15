@@ -10,5 +10,6 @@ public interface UserDao {
     List<User> getAllUsers();
     void updateUserByID(Long id, User user);
     void deleteUserById(Long id);
+    User getUserByMostPopularPost();
 
 }
