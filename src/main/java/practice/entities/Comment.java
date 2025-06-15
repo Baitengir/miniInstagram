@@ -11,7 +11,6 @@ import static jakarta.persistence.CascadeType.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @Entity
@@ -29,10 +28,21 @@ public class Comment {
     LocalDate changedDate;
     @Column(name = "likes_count")
     int likesCount = 0;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     User user;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     Post post;
     @OneToMany(mappedBy = "comment", cascade = {REMOVE})
     List<Like> likes = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "\nComment{" +
+                "id=" + id +
+                ", commentText='" + commentText + '\'' +
+                ", createDate=" + createDate +
+                ", changedDate=" + changedDate +
+                ", likesCount=" + likesCount +
+                '}';
+    }
 }

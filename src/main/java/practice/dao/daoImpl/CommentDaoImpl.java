@@ -141,8 +141,11 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public Comment getPopularComment() {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            Comment comment = entityManager.createQuery("select c from Comment c order by likesCount", Comment.class)
-                    .getSingleResult();
+            Comment comment = entityManager.createQuery("select c from Comment c order by likesCount desc", Comment.class)
+                    .setMaxResults(1)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
             if (comment == null) {
                 System.out.println("Database for comment is null!");
                 return null;

@@ -14,7 +14,6 @@ import static jakarta.persistence.CascadeType.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @Entity
@@ -41,7 +40,7 @@ public class User {
             }
     )
     List<Post> posts = new ArrayList<>();
-    @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
+    @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH}, fetch = FetchType.EAGER)
     List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = {REMOVE, MERGE, REFRESH})
     List<Like> likes = new ArrayList<>();
@@ -52,5 +51,17 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "\nUser{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
     }
 }

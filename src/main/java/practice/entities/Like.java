@@ -23,10 +23,10 @@ public class Like {
     Long id;
     @Column(name = "liked_date")
     LocalDate likedDate;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     User user;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     Post post;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     Comment comment;
 }

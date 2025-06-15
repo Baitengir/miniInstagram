@@ -51,15 +51,19 @@ public class LikeDaoImpl implements LikeDao {
     }
 
     @Override
-    public void deleteLikeFromPost(Long postId, Long ownerUserId) {
+    public void deleteLikeFromPost(Long postId, Long likeAuthorUserId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Post post = entityManager.find(Post.class, postId);
-            User user = entityManager.find(User.class, ownerUserId);
+            User likeAuthor = entityManager.find(User.class, likeAuthorUserId);
 
+            if (post == null || likeAuthor == null) {
+                System.out.println("post or user not found");
+                return;
+            }
             Like likeToRemove = post.getLikes().stream()
-                    .filter(like -> like.getUser().getId().equals(user.getId()))
+                    .filter(like -> like.getUser().getId().equals(likeAuthor.getId()))
                     .findFirst()
                     .orElse(null);
 
@@ -67,9 +71,12 @@ public class LikeDaoImpl implements LikeDao {
                 post.getLikes().remove(likeToRemove);
                 post.setLikesCount(post.getLikesCount() - 1);
                 entityManager.remove(likeToRemove);
-            } 
-            entityManager.getTransaction().commit();
-            System.out.println("like successfully removed");
+                entityManager.getTransaction().commit();
+                System.out.println("like successfully removed");
+            } else {
+                System.out.println("Dates not coincidence");
+            }
+
         } catch (HibernateException e) {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
@@ -127,7 +134,10 @@ public class LikeDaoImpl implements LikeDao {
             entityManager.getTransaction().begin();
             Comment comment = entityManager.find(Comment.class, commentId);
             User commentAuthor = entityManager.find(User.class, commentAuthorId);
-            
+            if (comment == null || commentAuthor == null) {
+                System.out.println("comment or user not found");
+                return;
+            }
             Like likeToRemove = comment.getLikes().stream()
                     .filter(l-> l.getUser().getId().equals(commentAuthor.getId()))
                     .findFirst()
@@ -137,9 +147,11 @@ public class LikeDaoImpl implements LikeDao {
                 comment.getLikes().remove(likeToRemove);
                 comment.setLikesCount(comment.getLikesCount() - 1);
                 entityManager.remove(likeToRemove);
+                entityManager.getTransaction().commit();
+                System.out.println("like successfully removed");
+            } else {
+                System.out.println("Dates in the parameter are not coincidence");
             }
-            entityManager.getTransaction().commit();
-            System.out.println("like successfully removed");
             
         } catch (HibernateException e){
             if (entityManager.getTransaction().isActive()){
