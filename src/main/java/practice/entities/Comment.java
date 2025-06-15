@@ -25,6 +25,8 @@ public class Comment {
     String commentText;
     @Column(name = "create_date")
     LocalDate createDate;
+    @Column(name = "changed_date")
+    LocalDate changedDate;
     @Column(name = "likes_count")
     int likesCount = 0;
     @ManyToOne(cascade = {DETACH, MERGE, REFRESH})
